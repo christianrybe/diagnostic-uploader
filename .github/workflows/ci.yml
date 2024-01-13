@@ -26,5 +26,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run tests
-        run: npm test
+      - name: Run linter
+        run: npm run lint
+
+      # Ignore for now - there are no tests yet
+      # - name: Run tests
+      #   run: npm test
