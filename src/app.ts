@@ -1,8 +1,4 @@
-import express, {
-  type Request,
-  type Response,
-  type Application,
-} from "express";
+import express, { type Request, type Response, type Application } from "express";
 import dotenv from "dotenv";
 import { upload } from "./multer";
 
