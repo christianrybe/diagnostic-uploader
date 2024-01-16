@@ -6,23 +6,17 @@ var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const multer_1 = __importDefault(require("multer"));
 dotenv_1.default.config();
+// Dotenv config must be called before importing multer
+// eslint-disable-next-line import/first
+const multer_1 = require("./multer");
 const app = (0, express_1.default)();
 const port = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 8000;
 app.get("/", (req, res) => {
-    res.send("Hello World 2");
+    res.send("Hello World");
 });
-const storage = multer_1.default.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, "uploads/");
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.fieldname + "-" + Date.now() + "-" + file.originalname);
-    },
-});
-const upload = (0, multer_1.default)({ storage });
-app.post("/upload", upload.single("file"), (req, res) => {
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+app.post("/upload", multer_1.upload.single("file"), (req, res) => {
     res.send("File uploaded successfully");
 });
 app.listen(port, () => {

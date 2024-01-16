@@ -2,12 +2,15 @@ branch-defaults:
   main:
     environment: diagnostic-uploader
     group_suffix: null
+  s3:
+    environment: diagnostic-uploader
+    group_suffix: null
 global:
   application_name: diagnostic-uploader
   branch: null
   default_ec2_keyname: aws-eb
   default_platform: Docker running on 64bit Amazon Linux 2023
-  default_region: eu-west-3
+  default_region: eu-north-1
   include_git_submodules: true
   instance_profile: null
   platform_name: null

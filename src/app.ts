@@ -1,8 +1,14 @@
-import express, { type Request, type Response, type Application } from "express";
+import express, {
+  type Request,
+  type Response,
+  type Application,
+} from "express";
 import dotenv from "dotenv";
-import { upload } from "./multer";
-
 dotenv.config();
+
+// Dotenv config must be called before importing multer
+// eslint-disable-next-line import/first
+import { upload } from "./multer";
 
 const app: Application = express();
 const port = process.env.PORT ?? 8000;
