@@ -12,13 +12,22 @@ dotenv_1.default.config();
 const multer_1 = require("./multer");
 const app = (0, express_1.default)();
 const port = (_a = process.env.PORT) !== null && _a !== void 0 ? _a : 8000;
-app.get("/", (req, res) => {
-    res.send("Hello World");
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "healthy",
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString(),
+    });
 });
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-app.post("/upload", multer_1.upload.single("file"), (req, res) => {
-    res.send("File uploaded successfully");
+app.post("/api/archives", multer_1.upload.single("file"), (req, res) => {
+    res.status(201).json({
+        status: "success",
+        message: "File uploaded successfully",
+    });
 });
 app.listen(port, () => {
     console.log(`Server online at http://localhost:${port}`);
 });
+// Export app for testing
+exports.default = app;

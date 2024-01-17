@@ -18,10 +18,16 @@ app.get("/health", (req, res) => {
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-app.post("/api/upload", upload.single("file"), (req: Request, res: Response) => {
-  res.send("File uploaded successfully");
+app.post("/api/archives", upload.single("file"), (req: Request, res: Response) => {
+  res.status(201).json({
+    status: "success",
+    message: "File uploaded successfully",
+  });
 });
 
 app.listen(port, () => {
   console.log(`Server online at http://localhost:${port}`);
 });
+
+// Export app for testing
+export default app;
