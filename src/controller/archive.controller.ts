@@ -22,6 +22,8 @@ const isKeyDefined = (file: { Key?: string }): file is { Key: string } => {
 
 export const listS3Files = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const params = {
+    // app would fail to start if AWS_BUCKET_NAME is required to init multer, so this assertion is safe
+    // TODO: add proper env var validation upon startup and create config with no undefined values
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     Bucket: process.env.AWS_BUCKET_NAME!,
   };

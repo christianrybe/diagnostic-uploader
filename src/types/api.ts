@@ -1,11 +1,13 @@
+export interface ApiError {
+  message: string;
+  code: number;
+}
+
 export interface UploadApiResponse {
   data?: {
     id: string;
   };
-  error?: {
-    message: string;
-    code: number;
-  };
+  error?: ApiError;
 }
 
 export interface File {
@@ -16,8 +18,5 @@ export interface ListFilesApiResponse {
   data?: {
     files?: File[];
   };
-  error?: {
-    message: string;
-    code: number;
-  };
+  error?: ApiError;
 }
