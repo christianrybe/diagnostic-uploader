@@ -5,7 +5,6 @@ import multer from "multer";
 
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction): void => {
   console.error(err.stack);
-  console.log(err.constructor.name);
 
   let response: UploadApiResponse;
 

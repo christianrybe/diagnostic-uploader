@@ -65,7 +65,7 @@ What things you need to install the software and how to install them:
   npm run test
   ```
 
-  Tests run using Jest.
+  Currently only basic unit tests are implemented. They are located next to the source code in `__tests__` subdirectories. They follow the `<prod_file>.test.ts` naming convention. Tests run using Jest.
 
 7. OPTIONAL: Docker
 
@@ -189,14 +189,15 @@ Basic monitoring is provided out of the box inside AWS console and EB console. I
 
 The features below have been skipped due to time constraints and it would be beneficial to implement them.
 
+- Replace `multer` with a library giving access to filename earlier (e.g. `formidable`). Currently the entire file would need to be sent and processed by multer to parse the body and read the filename from the multipart/form-data body
 - Include Swagger for live API documentation.
-- Add E2E tests to really verify that a file is successfully uploaded to S3
+- Add E2E tests (e.g. using Docker) to really verify that a file is successfully uploaded to S3
 - Adding s3-mock for unit & integration tests
 - Adding Sentry for easy error tracking
 - Using vaults for more secure secrets storage in environments
 - Implementing appropriate roles and ACLs in AWS for better security
 - Adding authorisation
-- More granular deployment workflow; if there are more users working on the project then also adding pre-PR verification
+- More granular deployment workflow, e.g. if there are more users working on the project - adding pre-PR verification
 - Env var (config) verification on startup and providing a config with no undefined values
 - Add pagination for the returned list of uploads
 - Alerting when the app is down, not responding, overloaded, etc

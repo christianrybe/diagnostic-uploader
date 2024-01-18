@@ -7,7 +7,6 @@ const bad_request_error_1 = __importDefault(require("../error/bad-request-error"
 const multer_1 = __importDefault(require("multer"));
 const errorHandler = (err, req, res, next) => {
     console.error(err.stack);
-    console.log(err.constructor.name);
     let response;
     if (err instanceof bad_request_error_1.default) {
         response = {
