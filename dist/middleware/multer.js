@@ -42,5 +42,5 @@ function tgzArchiveFilter(req, file, cb) {
     }
 }
 exports.tgzArchiveFilter = tgzArchiveFilter;
-const oneMB = 1000000;
-exports.upload = (0, multer_1.default)({ limits: { fileSize: oneMB }, storage, fileFilter: tgzArchiveFilter });
+const twentyFiveGB = 25000000000;
+exports.upload = (0, multer_1.default)({ limits: { fileSize: twentyFiveGB }, storage, fileFilter: tgzArchiveFilter });
