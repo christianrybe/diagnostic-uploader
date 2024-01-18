@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { type Request } from "express";
-import { tgzArchiveFilter } from "../middleware/multer";
+import { tgzArchiveFilter } from "../multer";
 
 describe("tgzArchiveFilter", () => {
   it("should process the upload if the file extension is .tgz", () => {
     const req: Request = {} as Request;
-    const file = {
+    const file: any = {
       originalname: "archive.tgz",
     };
 
@@ -18,7 +19,7 @@ describe("tgzArchiveFilter", () => {
 
   it("should throw an error if the file extension is not .tgz", () => {
     const req: Request = {} as Request;
-    const file = {
+    const file: any = {
       originalname: "archive.zip",
     };
 
