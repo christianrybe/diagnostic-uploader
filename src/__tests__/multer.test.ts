@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { type Request } from "express";
-import { tgzArchiveFilter } from "../multer";
+import { tgzArchiveFilter } from "../middleware/multer";
 
 describe("tgzArchiveFilter", () => {
   it("should process the upload if the file extension is .tgz", () => {
