@@ -12,13 +12,13 @@ aws.config.update({
 
 const s3 = new S3Client();
 
-console.log("secretAccessKey", process.env.AWS_SECRET_ACCESS_KEY);
-
 const storage = multerS3({
   s3,
   bucket: "diagnostics-easy-to-remember-string-test-env",
   key: function (req: any, file: any, cb: any) {
-    cb(null, file.originalname + "-" + new Date().toISOString());
+    const resourceName = file.originalname + "-" + new Date().toISOString();
+    req.resourceName = resourceName;
+    cb(null, resourceName);
   },
 });
 

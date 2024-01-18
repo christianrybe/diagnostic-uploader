@@ -7,7 +7,6 @@ dotenv.config();
 import { upload } from "./multer";
 
 const app: Application = express();
-const port = process.env.PORT ?? 8000;
 
 app.get("/health", (req, res) => {
   res.status(200).json({
@@ -22,11 +21,8 @@ app.post("/api/archives", upload.single("file"), (req: Request, res: Response) =
   res.status(201).json({
     status: "success",
     message: "File uploaded successfully",
+    resourceName: req.resourceName,
   });
-});
-
-app.listen(port, () => {
-  console.log(`Server online at http://localhost:${port}`);
 });
 
 // Export app for testing

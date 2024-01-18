@@ -14,12 +14,13 @@ aws_sdk_1.default.config.update({
     region: process.env.AWS_REGION,
 });
 const s3 = new client_s3_1.S3Client();
-console.log("secretAccessKey", process.env.AWS_SECRET_ACCESS_KEY);
 const storage = (0, multer_s3_1.default)({
     s3,
     bucket: "diagnostics-easy-to-remember-string-test-env",
     key: function (req, file, cb) {
-        cb(null, file.originalname + "-" + new Date().toISOString());
+        const resourceName = file.originalname + "-" + new Date().toISOString();
+        req.resourceName = resourceName;
+        cb(null, resourceName);
     },
 });
 exports.upload = (0, multer_1.default)({ storage });
