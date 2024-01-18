@@ -17,7 +17,7 @@ const storage = (0, multer_s3_1.default)({
     s3: aws_1.s3Client,
     bucket: bucketName,
     key: function (req, file, cb) {
-        const resourceName = file.originalname + "-" + new Date().toISOString();
+        const resourceName = new Date().toISOString() + "-" + file.originalname;
         req.resourceName = resourceName; // pass the resource name back to the API
         cb(null, resourceName);
     },

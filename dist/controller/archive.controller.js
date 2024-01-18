@@ -42,7 +42,7 @@ const listS3Files = (req, res, next) => __awaiter(void 0, void 0, void 0, functi
             data: {
                 files: (_a = data.Contents) === null || _a === void 0 ? void 0 : _a.filter(isKeyDefined).map((file) => ({
                     id: file.Key,
-                    url: `https://${params.Bucket}.s3.amazonaws.com/${file.Key}`,
+                    url: `https://${params.Bucket}.s3.amazonaws.com/${file.Key.replace(/\s/g, "+")}`,
                 })),
             },
         };

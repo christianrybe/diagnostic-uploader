@@ -34,7 +34,7 @@ export const listS3Files = async (req: Request, res: Response, next: NextFunctio
         data: {
           files: data.Contents?.filter(isKeyDefined).map((file) => ({
             id: file.Key,
-            url: `https://${params.Bucket}.s3.amazonaws.com/${file.Key}`,
+            url: `https://${params.Bucket}.s3.amazonaws.com/${file.Key.replace(/\s/g, "+")}`,
           })),
         },
       };
