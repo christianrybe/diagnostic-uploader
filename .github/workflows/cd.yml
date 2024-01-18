@@ -46,6 +46,8 @@ jobs:
   release:
     needs: build-and-test
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
