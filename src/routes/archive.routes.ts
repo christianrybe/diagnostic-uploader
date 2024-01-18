@@ -1,20 +1,11 @@
-import { Router, type Request, type Response } from "express";
-import { upload } from "../middleware/multer";
+import { Router } from "express";
+import respondAfterUpload from "../controller/archive.controller";
 import ensureMultipart from "../middleware/ensure_multipart";
-import { type UploadApiResponse } from "../types/api";
+import { upload } from "../middleware/multer";
 
 const router = Router();
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-router.post("/", ensureMultipart, upload.single("file"), (req: Request, res: Response) => {
-  const response: UploadApiResponse = {
-    data: {
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      id: req.resourceName!,
-    },
-  };
-
-  res.status(201).json(response);
-});
+router.post("/", ensureMultipart, upload.single("file"), respondAfterUpload);
 
 export default router;

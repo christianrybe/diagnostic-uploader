@@ -4,6 +4,7 @@ import BadRequestError from "../error/bad-request-error";
 
 const errorHandler = (err: any, req: Request, res: Response, next: NextFunction): void => {
   console.error(err.stack);
+  console.log(err.constructor.name);
 
   let response: UploadApiResponse;
 
@@ -15,16 +16,15 @@ const errorHandler = (err: any, req: Request, res: Response, next: NextFunction)
       },
     };
     res.status(err.statusCode).json(response);
-    return;
+  } else {
+    response = {
+      error: {
+        message: err.message,
+        code: 500,
+      },
+    };
+    res.status(500).json(response);
   }
-
-  response = {
-    error: {
-      message: "An internal error occurred",
-      code: 500,
-    },
-  };
-  res.status(500).json(response);
 };
 
 export default errorHandler;
