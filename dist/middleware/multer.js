@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.upload = void 0;
 const multer_1 = __importDefault(require("multer"));
@@ -21,5 +22,5 @@ const storage = (0, multer_s3_1.default)({
         cb(null, resourceName);
     },
 });
-const twentyFiveGB = 25000000000;
-exports.upload = (0, multer_1.default)({ limits: { fileSize: twentyFiveGB }, storage, fileFilter: tgz_archive_filter_1.default });
+const maxUploadSizeOrFiftyGB = (_a = Number(process.env.MAX_UPLOAD_SIZE)) !== null && _a !== void 0 ? _a : 50000000000;
+exports.upload = (0, multer_1.default)({ limits: { fileSize: maxUploadSizeOrFiftyGB }, storage, fileFilter: tgz_archive_filter_1.default });
