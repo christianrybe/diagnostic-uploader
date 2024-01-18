@@ -32,6 +32,8 @@ jobs:
       - name: Run tests
         run: npm test
       
+      # This is mainly a backup mechanism. `npm run build` is also run as the precommit hook.
+      # and we should have the latest dist folder in the repository.
       - name: Build
         run: npm run build
       
@@ -47,6 +49,9 @@ jobs:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
@@ -66,6 +71,9 @@ jobs:
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
       AWS_BUCKET_NAME: ${{ secrets.AWS_BUCKET_NAME }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Download dist from build-and-test
         uses: actions/download-artifact@v2
         with:
