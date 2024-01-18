@@ -36,16 +36,17 @@ describe("GET /health", () => {
         });
     }));
 });
-// describe("POST /api/archives", () => {
-//   it("should return status 201 and a success message", async () => {
-//     const response = await request(app).post("/api/archives").attach("file", "./resources/test.txt");
-//     console.log(response.error); // Log error for debugging
-//     console.log("response", response);
-//     expect(response.status).toBe(201);
-//     expect(response.type).toBe("application/json");
-//     expect(response.body).toEqual({
-//       status: "success",
-//       message: "File uploaded successfully",
-//     });
-//   });
-// });
+// Skipping this test for now. It gives `Aborted` error. Probably to do with the upload middleware.
+describe("POST /api/archives", () => {
+    it.skip("should return status 201 and a success message", () => __awaiter(void 0, void 0, void 0, function* () {
+        const response = yield (0, supertest_1.default)(app_1.default).post("/api/archives").attach("file", "./resources/test.txt");
+        console.log(response.error); // Log error for debugging
+        console.log("response", response);
+        expect(response.status).toBe(201);
+        expect(response.type).toBe("application/json");
+        expect(response.body).toEqual({
+            status: "success",
+            message: "File uploaded successfully",
+        });
+    }));
+});

@@ -15,9 +15,14 @@ aws.config.update({
 
 const s3 = new S3Client();
 
+const bucketName = process.env.AWS_BUCKET_NAME;
+if (bucketName === undefined) {
+  throw new Error("Missing bucket name in environment variables");
+}
+
 const storage = multerS3({
   s3,
-  bucket: "diagnostics-easy-to-remember-string-test-envs",
+  bucket: bucketName,
   key: function (req: Request, file: Express.Multer.File, cb: (error: any, key?: string) => void) {
     const resourceName = file.originalname + "-" + new Date().toISOString();
     req.resourceName = resourceName; // pass the resource name back to the API
@@ -37,4 +42,5 @@ export function tgzArchiveFilter(req: Request, file: Express.Multer.File, cb: Fi
   }
 }
 
-export const upload = multer({ storage, fileFilter: tgzArchiveFilter });
+const twentyFiveGB = 25000000000;
+export const upload = multer({ limits: { fileSize: twentyFiveGB }, storage, fileFilter: tgzArchiveFilter });

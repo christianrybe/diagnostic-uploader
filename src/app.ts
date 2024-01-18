@@ -1,11 +1,10 @@
+/* eslint-disable import/first */
 import express, { type Application } from "express";
 import dotenv from "dotenv";
+dotenv.config(); // Load environment variables from before initializing the app
 
-// Dotenv config must be called before importing multer
-// eslint-disable-file import/first
 import { ArchiveRoute, HealthRoute } from "./routes";
 import errorHandler from "./middleware/error_handler";
-dotenv.config();
 
 const app: Application = express();
 
