@@ -1,7 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { type UploadApiResponse } from "../types/api";
+import { type ListFilesApiResponse, type UploadApiResponse } from "../types/api";
+import { s3 } from "../middleware/aws";
 
-const respondAfterUpload = (req: Request, res: Response, next: NextFunction): void => {
+export const respondAfterUpload = (req: Request, res: Response, next: NextFunction): void => {
   if (req.resourceName != null) {
     const response: UploadApiResponse = {
       data: {
@@ -15,4 +16,29 @@ const respondAfterUpload = (req: Request, res: Response, next: NextFunction): vo
   }
 };
 
-export default respondAfterUpload;
+const isKeyDefined = (file: { Key?: string }): file is { Key: string } => {
+  return file.Key !== undefined;
+};
+
+export const listS3Files = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  const params = {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    Bucket: process.env.AWS_BUCKET_NAME!,
+  };
+
+  await s3
+    .listObjectsV2(params)
+    .promise()
+    .then((data) => {
+      const response: ListFilesApiResponse = {
+        data: {
+          files: data.Contents?.filter(isKeyDefined).map((file) => ({
+            id: file.Key,
+            url: `https://${params.Bucket}.s3.amazonaws.com/${file.Key}`,
+          })),
+        },
+      };
+
+      res.status(200).json(response);
+    });
+};

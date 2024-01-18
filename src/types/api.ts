@@ -7,3 +7,17 @@ export interface UploadApiResponse {
     code: number;
   };
 }
+
+export interface File {
+  id: string;
+  url: string;
+}
+export interface ListFilesApiResponse {
+  data?: {
+    files?: File[];
+  };
+  error?: {
+    message: string;
+    code: number;
+  };
+}

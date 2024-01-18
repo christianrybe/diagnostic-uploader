@@ -1,18 +1,8 @@
-import aws from "aws-sdk";
-
-import { S3Client } from "@aws-sdk/client-s3";
 import { type Request } from "express";
 import multer from "multer";
 import multerS3 from "multer-s3";
 import tgzArchiveFilter from "./tgz_archive_filter";
-
-aws.config.update({
-  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-  region: process.env.AWS_REGION,
-});
-
-const s3 = new S3Client();
+import { s3Client } from "./aws";
 
 const bucketName = process.env.AWS_BUCKET_NAME;
 if (bucketName === undefined) {
@@ -20,7 +10,7 @@ if (bucketName === undefined) {
 }
 
 const storage = multerS3({
-  s3,
+  s3: s3Client,
   bucket: bucketName,
   key: function (req: Request, file: Express.Multer.File, cb: (error: any, key?: string) => void) {
     const resourceName = file.originalname + "-" + new Date().toISOString();
