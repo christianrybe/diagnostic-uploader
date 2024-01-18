@@ -6,7 +6,7 @@ COPY package*.json ./
 
 RUN npm ci --only=production --ignore-scripts
 
-COPY dist/* .
+COPY dist .
 
 EXPOSE 8000
 
