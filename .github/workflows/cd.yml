@@ -35,8 +35,8 @@ jobs:
         run: npm run lint
 
       # Ignore for now - there are no tests yet
-      # - name: Run tests
-      #   run: npm test
+      - name: Run tests
+        run: npm test
       
       - name: Semantic Release
         env:
