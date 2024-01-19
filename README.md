@@ -6,6 +6,8 @@ This Express application is designed to handle uploads of large .tgz archives to
 
 Only correctly formed multipart requests with .tgz archives are accepted. 
 
+Currently there is a default file size limit of 50GB. It can be customised using the `MAX_UPLOAD_SIZE` env var.
+
 ## Getting Started
 
 These instructions will guide you through getting a copy of the project up and running on your local machine for development and testing purposes.
