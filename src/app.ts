@@ -5,8 +5,15 @@ dotenv.config(); // Load environment variables from before initializing the app
 
 import { ArchiveRoute, HealthRoute } from "./routes";
 import errorHandler from "./middleware/error_handler";
+import cors from "cors";
 
 const app: Application = express();
+
+const corsOptions = {
+  origin: process.env.CORS_ORIGIN,
+};
+
+app.use(cors(corsOptions));
 
 app.use("/api/archive", ArchiveRoute);
 

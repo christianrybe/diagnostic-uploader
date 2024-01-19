@@ -9,7 +9,12 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config(); // Load environment variables from before initializing the app
 const routes_1 = require("./routes");
 const error_handler_1 = __importDefault(require("./middleware/error_handler"));
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
+const corsOptions = {
+    origin: process.env.CORS_ORIGIN,
+};
+app.use((0, cors_1.default)(corsOptions));
 app.use("/api/archive", routes_1.ArchiveRoute);
 app.use("/health", routes_1.HealthRoute);
 app.use(error_handler_1.default);

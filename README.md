@@ -190,6 +190,7 @@ Basic monitoring is provided out of the box inside AWS console and EB console. I
 The features below have been skipped due to time constraints and it would be beneficial to implement them.
 
 - Replace `multer` with a library giving access to filename earlier (e.g. `formidable`). Currently the entire file would need to be sent and processed by multer to parse the body and read the filename from the multipart/form-data body
+- Refactor to separate clearly business logic from libraries and frameworks.
 - Include Swagger for live API documentation.
 - Add E2E tests (e.g. using Docker) to really verify that a file is successfully uploaded to S3
 - Adding s3-mock for unit & integration tests
