@@ -88,9 +88,13 @@ What things you need to install the software and how to install them:
 
 This project is configured with GitHub Actions for continuous deployment to AWS Elastic Beanstalk on the Docker platform. On every push to the main branch, the application is automatically as a Docker container (see `Dockerfile`). 
 
+There is only one prod environment.
+
 ## Production environment
 
 The server is accessible at: [http://diagnostic-uploader.eu-north-1.elasticbeanstalk.com/](http://diagnostic-uploader.eu-north-1.elasticbeanstalk.com/)
+
+In order to solve browser mixed content issues, the app is also accessible via a custom domain: https://christianrybe.com
 
 ### API
 

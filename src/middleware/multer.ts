@@ -19,5 +19,6 @@ const storage = multerS3({
   },
 });
 
-const maxUploadSizeOrFiftyGB = Number(process.env.MAX_UPLOAD_SIZE) ?? 50000000000;
+const maxUploadSizeOrFiftyGB = process.env.MAX_UPLOAD_SIZE != null ? Number(process.env.MAX_UPLOAD_SIZE) : 50000000000;
+console.log(`Max upload size: ${maxUploadSizeOrFiftyGB}`);
 export const upload = multer({ limits: { fileSize: maxUploadSizeOrFiftyGB }, storage, fileFilter: tgzArchiveFilter });
