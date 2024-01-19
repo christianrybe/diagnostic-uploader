@@ -3,9 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.verifyMultipartContentType = exports.verifyFileExtension = exports.generateResourceName = exports.maxUploadSizeOrFiftyGB = void 0;
+exports.verifyMultipartContentType = exports.verifyFileExtension = exports.generateResourceName = exports.maxUploadSizeOrFiftyGB = exports.getMaxUploadSizeOrDefault = void 0;
 const path_1 = __importDefault(require("path"));
-exports.maxUploadSizeOrFiftyGB = process.env.MAX_UPLOAD_SIZE ? Number(process.env.MAX_UPLOAD_SIZE) : 50000000000;
+const fiftyGB = 50000000000;
+// Exported for tests
+const getMaxUploadSizeOrDefault = () => (process.env.MAX_UPLOAD_SIZE ? Number(process.env.MAX_UPLOAD_SIZE) : fiftyGB);
+exports.getMaxUploadSizeOrDefault = getMaxUploadSizeOrDefault;
+exports.maxUploadSizeOrFiftyGB = (0, exports.getMaxUploadSizeOrDefault)();
 const generateResourceName = (originalName) => {
     return new Date().toISOString() + "-" + originalName;
 };

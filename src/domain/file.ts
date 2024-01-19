@@ -1,6 +1,10 @@
 import path from "path";
 
-export const maxUploadSizeOrFiftyGB = process.env.MAX_UPLOAD_SIZE ? Number(process.env.MAX_UPLOAD_SIZE) : 50000000000;
+const fiftyGB = 50000000000;
+// Exported for tests
+export const getMaxUploadSizeOrDefault = (): number => (process.env.MAX_UPLOAD_SIZE ? Number(process.env.MAX_UPLOAD_SIZE) : fiftyGB);
+
+export const maxUploadSizeOrFiftyGB = getMaxUploadSizeOrDefault();
 
 export const generateResourceName = (originalName: string): string => {
   return new Date().toISOString() + "-" + originalName;
