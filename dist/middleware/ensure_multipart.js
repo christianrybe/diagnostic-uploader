@@ -4,10 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const bad_request_error_1 = __importDefault(require("../error/bad-request-error"));
+const file_1 = require("../domain/file");
 const ensureMultipart = (req, res, next) => {
-    var _a;
-    const contentTypeHeader = (_a = req.headers["content-type"]) !== null && _a !== void 0 ? _a : "";
-    if (contentTypeHeader.startsWith("multipart/form-data")) {
+    if ((0, file_1.verifyMultipartContentType)(req.headers["content-type"])) {
         next();
     }
     else {

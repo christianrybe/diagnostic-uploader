@@ -8,6 +8,7 @@ const multer_1 = __importDefault(require("multer"));
 const multer_s3_1 = __importDefault(require("multer-s3"));
 const tgz_archive_filter_1 = __importDefault(require("./tgz_archive_filter"));
 const aws_1 = require("./aws");
+const file_1 = require("../domain/file");
 const bucketName = process.env.AWS_BUCKET_NAME;
 if (bucketName === undefined) {
     throw new Error("Missing bucket name in environment variables");
@@ -16,11 +17,9 @@ const storage = (0, multer_s3_1.default)({
     s3: aws_1.s3Client,
     bucket: bucketName,
     key: function (req, file, cb) {
-        const resourceName = new Date().toISOString() + "-" + file.originalname;
+        const resourceName = (0, file_1.generateResourceName)(file.originalname);
         req.resourceName = resourceName; // pass the resource name back to the API
         cb(null, resourceName);
     },
 });
-const maxUploadSizeOrFiftyGB = process.env.MAX_UPLOAD_SIZE != null ? Number(process.env.MAX_UPLOAD_SIZE) : 50000000000;
-console.log(`Max upload size: ${maxUploadSizeOrFiftyGB}`);
-exports.upload = (0, multer_1.default)({ limits: { fileSize: maxUploadSizeOrFiftyGB }, storage, fileFilter: tgz_archive_filter_1.default });
+exports.upload = (0, multer_1.default)({ limits: { fileSize: file_1.maxUploadSizeOrFiftyGB }, storage, fileFilter: tgz_archive_filter_1.default });
